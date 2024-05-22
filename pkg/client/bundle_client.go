@@ -14,7 +14,7 @@ import (
 type IClient interface {
 	SendBundle(context.Context, types.SendBundleArgs) (common.Hash, error)
 	QueryBundle(context.Context, common.Hash) (*types2.Bundle, error)
-	BundlePrice(context.Context) (uint64, error)
+	BundlePrice(context.Context) (*big.Int, error)
 	Builders(context.Context) ([]common.Address, error)
 	Validators(context.Context) ([]common.Address, error)
 }
