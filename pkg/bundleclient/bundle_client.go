@@ -1,4 +1,4 @@
-package client
+package bundleclient
 
 import (
 	"context"
@@ -47,7 +47,7 @@ func (c *Client) QueryBundle(ctx context.Context, bundleHash common.Hash) (*type
 
 func (c *Client) BundlePrice(ctx context.Context) (*big.Int, error) {
 	var price *big.Int
-	err := c.c.CallContext(ctx, &price, "eth_queryBundle")
+	err := c.c.CallContext(ctx, &price, "eth_bundlePrice")
 	if err != nil {
 		return nil, err
 	}

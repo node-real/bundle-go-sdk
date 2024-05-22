@@ -65,7 +65,7 @@ func main() {
 	
 	gnfdCLient, err := client.New(chainId, rpcAddr, client.Option{DefaultAccount: account})
 	if err != nil {
-		log.Fatalf("unable to new greenfield client, %v", err)
+		log.Fatalf("unable to new greenfield bundleclient, %v", err)
 	}
 }
 
