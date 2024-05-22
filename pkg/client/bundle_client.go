@@ -1,0 +1,73 @@
+package client
+
+import (
+	"context"
+	"math/big"
+
+	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/ethereum/go-ethereum/rpc"
+
+	types2 "bundle-go-sdk/pkg/types"
+)
+
+type IClient interface {
+	SendBundle(context.Context, types.SendBundleArgs) (common.Hash, error)
+	QueryBundle(context.Context, common.Hash) (*types2.Bundle, error)
+	BundlePrice(context.Context) (uint64, error)
+	Builders(context.Context) ([]common.Address, error)
+	Validators(context.Context) ([]common.Address, error)
+}
+
+type Client struct {
+	c *rpc.Client
+}
+
+func New(rpcCli *rpc.Client) *Client {
+	return &Client{rpcCli}
+}
+
+func (c *Client) SendBundle(ctx context.Context, args types.SendBundleArgs) (common.Hash, error) {
+	var hash common.Hash
+	err := c.c.CallContext(ctx, &hash, "eth_sendBundle", args)
+	if err != nil {
+		return common.Hash{}, err
+	}
+	return hash, nil
+}
+
+func (c *Client) QueryBundle(ctx context.Context, bundleHash common.Hash) (*types2.Bundle, error) {
+	var bundle types2.Bundle
+	err := c.c.CallContext(ctx, &bundle, "eth_queryBundle", bundleHash)
+	if err != nil {
+		return nil, err
+	}
+	return &bundle, nil
+}
+
+func (c *Client) BundlePrice(ctx context.Context) (*big.Int, error) {
+	var price *big.Int
+	err := c.c.CallContext(ctx, &price, "eth_queryBundle")
+	if err != nil {
+		return nil, err
+	}
+	return price, nil
+}
+
+func (c *Client) Builders(ctx context.Context) ([]common.Address, error) {
+	var builders []common.Address
+	err := c.c.CallContext(ctx, &builders, "eth_builders")
+	if err != nil {
+		return nil, err
+	}
+	return builders, nil
+}
+
+func (c *Client) Validators(ctx context.Context) ([]common.Address, error) {
+	var validators []common.Address
+	err := c.c.CallContext(ctx, &validators, "eth_validators")
+	if err != nil {
+		return nil, err
+	}
+	return validators, nil
+}
