@@ -8,7 +8,7 @@ import (
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/rpc"
 
-	types2 "bundle-go-sdk/pkg/types"
+	types2 "github.com/node-real/bundle-go-sdk/pkg/types"
 )
 
 type IClient interface {

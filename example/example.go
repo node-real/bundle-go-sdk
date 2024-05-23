@@ -15,7 +15,7 @@ import (
 	"github.com/ethereum/go-ethereum/rpc"
 	jsoniter "github.com/json-iterator/go"
 
-	"bundle-go-sdk/pkg/bundleclient"
+	"github.com/node-real/bundle-go-sdk/pkg/bundleclient"
 )
 
 func main() {
