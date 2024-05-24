@@ -14,7 +14,6 @@ permissions:
   # pull-requests: read
 jobs:
   golangci:
-    secrets: inherit
     name: golangci-lint
     strategy:
       matrix:
@@ -31,7 +30,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - run: export GOPRIVATE="github.com/node-real/*"
-      - run: git config --global url."https://${{ secrets.GITHUB_TOKEN }}@github.com".insteadOf "https://github.com"
+      - run: git config --global url."https://${{ secrets.GH_TOKEN }}@github.com".insteadOf "https://github.com"
 
       - uses: actions/cache@v3
         with:
@@ -58,4 +57,4 @@ jobs:
           version: latest
           skip-pkg-cache: true
           args: --timeout=99m
-          github-token: ${{ secrets.github_token }}
+          github-token: ${{ secrets.GH_TOKEN }}
