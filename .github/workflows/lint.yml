@@ -14,6 +14,7 @@ permissions:
   # pull-requests: read
 jobs:
   golangci:
+    secrets: inherit
     name: golangci-lint
     strategy:
       matrix:
