@@ -68,6 +68,11 @@ func main() {
 	}
 	fmt.Println("bundle price: ", bundlePrice)
 
+	if bundlePrice == nil {
+		// set default
+		bundlePrice = big.NewInt(5e9)
+	}
+
 	bundle := types.SendBundleArgs{
 		Txs:               make([]hexutil.Bytes, 0),
 		MaxBlockNumber:    0,
@@ -81,7 +86,7 @@ func main() {
 			To:       &address,
 			Value:    big.NewInt(params.GWei),
 			Gas:      uint64(5000000),
-			GasPrice: big.NewInt(5e9),
+			GasPrice: bundlePrice,
 			Data:     nil,
 		}
 
